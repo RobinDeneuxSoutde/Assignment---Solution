@@ -12,11 +12,12 @@ public class Booking {
 	///CONSTRUCTORS
 	public Booking()
 	{
-		
+		count ++;
 	}
 	
 	public Booking(Flight oF, Flight iF, ArrayList<Passenger> p)
 	{
+		count ++;
 		this.outbound = oF;
 		this.inbound = iF;
 		this.passengers = p;
@@ -46,7 +47,7 @@ public class Booking {
 	@Override
 	public String toString()
 	{
-		return ("Booking flight from "+inbound.toString()+" to "+inbound.toString()+" Price: "+totalPrice);
+		return ("Booking Inbound flight:"+inbound.getFlightNumber()+" Outbound:"+inbound.getFlightNumber());
 	}
 	
 	@Override
@@ -64,13 +65,20 @@ public class Booking {
 	
 	public boolean findPassenger(Passenger p)
 	{
-		for (Passenger tempP : this.passengers)
-			if(tempP.equals(p)) return true;
+		if (this.passengers!=null)
+		{
+			for (Passenger tempP : this.passengers)
+				if(tempP.equals(p)) return true;
+		}
 		return false;
 	}
 
-	private double calculatePrice()
+	public double calculatePrice()
 	{
-		return (outbound.getPrice()+inbound.getPrice())*count;
+		double d = outbound.getPrice()+inbound.getPrice();
+		double t = 0.0;
+		for (Passenger p : this.passengers)
+			t += d;
+		return t;
 	}
 }
